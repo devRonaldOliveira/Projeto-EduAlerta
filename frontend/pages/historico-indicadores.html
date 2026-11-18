@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#052a62">
+  <title>Histórico e Indicadores | EduAlerta</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/historico-indicadores.css">
+  <script src="../js/notificacoes.js" defer></script>
+  <script src="../js/historico-indicadores.js" defer></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="dashboard.html">
+    <img src="../assets/logo.svg" alt="EduAlerta">
+</a>
+      <nav class="sidebar-nav" aria-label="Menu principal">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/dashboard.svg" alt="" width="28" height="28"></span>Dashboard</a>
+        <a class="nav-link" href="alunos.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alunos.svg" alt="" width="28" height="28"></span>Alunos</a>
+        <a class="nav-link" href="fila-acompanhamento.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alertas.svg" alt="" width="28" height="28"></span>Alertas</a>
+        <a class="nav-link active" href="historico-indicadores.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/relatorios.svg" alt="" width="28" height="28"></span>Relatórios</a>
+        <a class="nav-link" href="configuracoes.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/configuracoes.svg" alt="" width="28" height="28"></span>Configurações</a>
+      </nav>
+      <div class="sidebar-bottom"><a class="nav-link" href="login.html" aria-label="Voltar ao login na prévia"><span class="nav-icon" aria-hidden="true">↪</span>Sair <span class="nav-hint">(prévia)</span></a></div>
+    </aside>
+
+    <div class="content-area reports-content">
+      <header class="topbar reports-topbar">
+        <button id="toggle-sidebar" class="menu-button" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Abrir navegação">☰</button>
+        <div class="reports-top-spacer"></div>
+        <div class="header-actions">
+          <div class="dropdown-wrap">
+            <button id="notifications-button" class="notification-button" type="button" aria-expanded="false" aria-controls="notifications-panel" aria-label="Abrir notificações"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span class="notification-dot" aria-hidden="true"></span><span class="notification-count" data-notification-count hidden></span></button>
+            <div id="notifications-panel" class="dropdown-panel notifications-panel" hidden role="region" aria-label="Notificações"><div class="notifications-panel-heading"><strong>Notificações</strong><span>Central de avisos</span></div><p class="notification-state" data-notification-state role="status" aria-live="polite" hidden></p><div class="notification-list" data-notification-list role="list"></div><p class="notification-empty" data-notification-empty>Nenhuma notificação disponível no momento.</p></div>
+          </div>
+          <div class="dropdown-wrap">
+            <button id="account-button" class="account-button" type="button" aria-expanded="false" aria-controls="account-panel"><span class="avatar" aria-hidden="true">SA</span><span class="account-caption"><strong>Secretaria de Educação</strong><small>Prefeitura do Recife</small></span><span class="chevron" aria-hidden="true">⌄</span></button>
+            <div id="account-panel" class="dropdown-panel account-panel" hidden><p>Prévia visual — sem autenticação conectada.</p><a href="login.html">Voltar ao login</a></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content reports-main" id="main-content">
+        <div class="reports-heading">
+          <div><h1>Relatórios</h1><p>Analise a frequência e planeje ações pedagógicas</p></div>
+          <span id="reports-data-state" class="reports-demo-label" role="status">Demonstração · dados ilustrativos</span>
+        </div>
+        <p id="reports-filter-summary" class="reports-visually-hidden reports-filter-summary" aria-live="polite"></p>
+
+        <section class="reports-filter-panel" aria-label="Filtros para os relatórios">
+          <div class="reports-filter-field"><label for="filter-school">Escola</label><select id="filter-school"><option value="">Todas as escolas</option></select></div>
+          <div class="reports-filter-field"><label for="filter-class">Turma</label><select id="filter-class"><option value="">Todas as turmas</option></select></div>
+          <div class="reports-filter-field"><label for="filter-student">Estudante</label><select id="filter-student"><option value="">Todos os estudantes</option></select></div>
+          <div class="reports-filter-field"><label for="filter-period">Período</label><select id="filter-period"><option value="">Todos</option><option value="outubro/2026">Outubro de 2026</option><option value="setembro/2026">Setembro de 2026 (sem dados na prévia)</option></select></div>
+          <div class="reports-filter-field"><label for="filter-attendance-status">Situação de frequência</label><select id="filter-attendance-status"><option value="">Todas as situações</option><option value="regular">Regular (≥ 75%)</option><option value="atencao">Atenção (60% a 74,9%)</option><option value="alerta">Alerta (&lt; 60%)</option></select></div>
+          <div class="reports-filter-actions">
+            <button id="generate-report" class="reports-primary-button" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg> Gerar relatório</button>
+            <button id="download-report" class="reports-download-button" type="button" aria-label="Baixar CSV do relatório" title="Baixar planilha CSV"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg></button>
+          </div>
+        </section>
+
+        <section class="reports-kpis" aria-label="Indicadores gerais">
+          <article class="reports-kpi reports-kpi-attendance"><span class="reports-kpi-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm17 4-5.5 5.5-4-4L7 12l1.41 1.41 2.09-2.08 4 4L21.41 8.41 20 7z"/></svg></span><div><h2>Frequência média</h2><strong id="kpi-attendance">—</strong><p id="kpi-attendance-note">Informações ainda não disponíveis</p></div></article>
+          <article class="reports-kpi reports-kpi-risk"><span class="reports-kpi-icon red" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span><div><h2>Alunos em risco</h2><strong id="kpi-risk">—</strong><p id="kpi-risk-note">Informações ainda não disponíveis</p></div></article>
+          <article class="reports-kpi reports-kpi-schools"><span class="reports-kpi-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-7 10.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></span><div><h2>Escolas monitoradas</h2><strong id="kpi-schools">—</strong><p id="kpi-schools-note">Informações ainda não disponíveis</p></div></article>
+        </section>
+
+        <div class="reports-chart-grid">
+          <section class="reports-panel reports-school-chart" aria-labelledby="schools-title">
+            <h2 id="schools-title"><svg class="reports-title-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.5 5h3v14h-3zM16 12h3v7h-3z"/></svg> Frequência por escola</h2>
+            <div class="reports-bars-layout" role="group" aria-label="Gráfico de barras da frequência por escola">
+              <div class="reports-chart-axis" aria-hidden="true"><span>100%</span><span>80%</span><span>60%</span><span>40%</span><span>20%</span><span>0%</span></div>
+              <div class="reports-bars-main"><div class="reports-plot" id="school-plot"><div class="reports-grid-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="reports-bars" id="school-bars"></div></div><div class="reports-x-axis" id="school-labels"></div></div>
+            </div>
+            <p id="schools-empty" class="reports-empty" hidden>Nenhuma escola corresponde aos filtros selecionados.</p>
+          </section>
+          <div class="reports-right-column">
+            <section class="reports-panel reports-risk-panel" aria-labelledby="risk-title">
+              <h2 id="risk-title"><svg class="reports-title-icon pie" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2.05v9h9c-.48-4.72-4.28-8.52-9-9zM9 2.05C4.39 2.56 1 6.84 1 12s3.39 9.44 8 9.95V2.05zm2 11.01v9c4.72-.48 8.52-4.28 9-9h-9z"/></svg> Distribuição por nível</h2>
+              <div class="reports-risk-content">
+                <div id="risk-legend" class="reports-risk-legend"><div><i class="red"></i><span>Alto risco</span><span>—</span></div><div><i class="yellow"></i><span>Atenção</span><span>—</span></div><div><i class="green"></i><span>Regular</span><span>—</span></div></div>
+                <div id="risk-donut" class="reports-donut" role="img" aria-label="Distribuição de alunos por nível de acompanhamento"><span class="reports-donut-center"></span><span class="reports-donut-label reports-donut-red" id="donut-risk-label"></span><span class="reports-donut-label reports-donut-yellow" id="donut-attention-label"></span><span class="reports-donut-label reports-donut-green" id="donut-regular-label"></span></div>
+              </div>
+              <p id="risk-empty" class="reports-empty" hidden>Distribuição indisponível para este filtro.</p>
+            </section>
+            <section class="reports-panel reports-trend-panel" aria-labelledby="trend-title">
+              <div class="reports-trend-header"><h2 id="trend-title"><svg class="reports-title-icon trend" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.29-6.29L22 12V6z"/></svg> Evolução por período</h2><label class="reports-visually-hidden" for="trend-series">Série de indicadores</label><select id="trend-series" aria-label="Série de indicadores"><option value="frequencia">Frequência média</option><option value="risco">Alunos em risco</option></select></div>
+              <div id="trend-chart" class="reports-trend-chart" role="img" aria-label="Evolução mensal da frequência média"></div>
+              <p id="trend-empty" class="reports-empty" hidden>Não há dados de evolução para o filtro selecionado.</p>
+            </section>
+          </div>
+        </div>
+
+        <section class="reports-table-panel" aria-label="Indicadores por turma">
+          <div class="reports-table-scroller"><table class="reports-table"><thead><tr><th scope="col">Turma</th><th scope="col">Escola</th><th scope="col">Frequência</th><th scope="col">Alunos em atenção</th><th scope="col">Totais de alunos</th></tr></thead><tbody id="reports-tbody"></tbody></table></div>
+          <p id="reports-count" class="reports-table-caption" role="status" aria-live="polite"></p>
+        </section>
+        <p id="reports-footer" class="footer-caption reports-footer">EduAlerta · Prévia de relatórios. Os valores de demonstração não representam dados reais.</p>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</body>
+</html>
