@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#052a62">
+  <title>Dashboard | EduAlerta</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <script src="../js/notificacoes.js" defer></script>
+  <script src="../js/dashboard.js" defer></script>
+</head>
+<body class="dashboard-page">
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="dashboard.html">
+    <img src="../assets/logo.svg" alt="EduAlerta">
+</a>
+      <nav class="sidebar-nav" aria-label="Menu principal">
+
+    <a class="nav-link active" href="dashboard.html">
+        <span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/dashboard.svg" alt="" width="28" height="28"></span>Dashboard
+    </a>
+
+    <a class="nav-link" href="alunos.html">
+        <span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alunos.svg" alt="" width="28" height="28"></span>Alunos
+    </a>
+
+    <a class="nav-link" href="fila-acompanhamento.html">
+        <span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alertas.svg" alt="" width="28" height="28"></span>Alertas
+    </a>
+
+    <a class="nav-link" href="historico-indicadores.html">
+        <span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/relatorios.svg" alt="" width="28" height="28"></span>Relatórios
+    </a>
+
+    <a class="nav-link" href="configuracoes.html">
+        <span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/configuracoes.svg" alt="" width="28" height="28"></span>Configurações
+    </a>
+
+</nav>
+      <div class="sidebar-bottom"><a class="nav-link" href="login.html" aria-label="Voltar ao login na prévia"><span class="nav-icon" aria-hidden="true">↪</span>Sair <span class="nav-hint">(prévia)</span></a></div>
+    </aside>
+
+    <div class="content-area">
+      <header class="topbar">
+        <button id="toggle-sidebar" class="menu-button" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Abrir navegação">☰</button>
+        <div class="header-heading"><p class="eyebrow">Visão geral</p><h1>Dashboard</h1><p>Acompanhamento da frequência escolar</p></div>
+        <div class="header-actions">
+          <div class="dropdown-wrap"><button id="notifications-button" class="notification-button" type="button" aria-expanded="false" aria-controls="notifications-panel" aria-label="Abrir notificações"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span class="notification-dot" aria-hidden="true"></span></button><div id="notifications-panel" class="dropdown-panel" hidden role="status">As notificações serão exibidas quando a API estiver conectada.</div></div>
+          <div class="dropdown-wrap"><button id="account-button" class="account-button" type="button" aria-expanded="false" aria-controls="account-panel"><span class="avatar" aria-hidden="true">SA</span><span class="account-caption"><strong>Secretaria de Educação</strong><small>Prefeitura do Recife</small></span><span class="chevron" aria-hidden="true">⌄</span></button><div id="account-panel" class="dropdown-panel account-panel" hidden><p>Prévia da interface — usuário não autenticado.</p><a href="login.html">Voltar ao login</a></div></div>
+        </div>
+      </header>
+
+      <main id="main-content" class="main-content">
+        <div class="info-banner" role="status"><span class="info-icon" aria-hidden="true">i</span><p><strong>Modo de prévia.</strong> O layout está preparado para receber os indicadores reais do FastAPI. Nenhum dado escolar está sendo simulado. <span id="dashboard-api-state" aria-live="polite">Aguardando integração.</span></p></div>
+        <section class="metric-section" aria-labelledby="metric-heading"><div class="section-heading"><div><p class="overline">Indicadores</p><h2 id="metric-heading">Indicadores principais</h2></div><div class="dashboard-period" role="group" aria-labelledby="dashboard-period-label">
+          <svg class="dashboard-period-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/></svg>
+          <div class="dashboard-period-content">
+            <span class="dashboard-period-label" id="dashboard-period-label">Período</span>
+            <div class="dashboard-period-inputs">
+              <label class="dashboard-visually-hidden" for="period-start">Data inicial</label>
+              <input id="period-start" name="period-start" type="date">
+              <span aria-hidden="true">–</span>
+              <label class="dashboard-visually-hidden" for="period-end">Data final</label>
+              <input id="period-end" name="period-end" type="date">
+            </div>
+            <div class="dashboard-period-actions"><button id="apply-period" type="button">Aplicar período</button><button id="clear-period" type="button">Limpar</button></div>
+            <p id="dashboard-period-feedback" role="status" aria-live="polite" hidden></p>
+          </div>
+        </div></div><div class="metric-grid">
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-.42 0-.82.09-1.18.24.74.89 1.18 2.03 1.18 3.26s-.44 2.37-1.18 3.26c.36.15.76.24 1.18.24zM8 11c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5.01 6.34 5.01 8 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 .07c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.15-3.28-3.32-7-3.43z"/></svg></span><p>Total de estudantes ativos</p><strong id="metric-students" aria-label="Dado não disponível">—</strong><small>Conecte a API para consultar</small></article>
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm17 4-5.5 5.5-4-4L7 12l1.41 1.41 2.09-2.08 4 4L21.41 8.41 20 7z"/></svg></span><p>Frequência média geral</p><strong id="metric-attendance" aria-label="Dado não disponível">—</strong><small>Conecte a API para consultar</small></article>
+          <article class="metric-card"><span class="metric-icon green" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span><p>Estudantes regulares</p><strong id="metric-regular" aria-label="Dado não disponível">—</strong><small>Frequência ≥ 75%</small></article>
+          <article class="metric-card"><span class="metric-icon amber" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span><p>Estudantes em atenção</p><strong id="metric-attention" aria-label="Dado não disponível">—</strong><small>Frequência de 60% a menos de 75%</small></article>
+          <article class="metric-card"><span class="metric-icon red" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span><p>Estudantes em alerta</p><strong id="metric-risk" aria-label="Dado não disponível">—</strong><small>Frequência abaixo de 60%</small></article>
+          <article class="metric-card"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V5h2v3h10V5h2v16z"/></svg></span><p>Acompanhamentos pendentes</p><strong id="metric-pending" aria-label="Dado não disponível">—</strong><small>Conecte a API para consultar</small></article>
+        </div></section>
+
+        <div class="analytics-grid">
+          <section class="panel trend-panel" aria-labelledby="trend-heading"><div class="panel-heading"><div><p class="overline">Frequência</p><h2 id="trend-heading">Tendência de frequência</h2></div><span class="panel-tag">Sem dados</span></div><div class="empty-chart"><div class="chart-grid" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div class="empty-content"><div class="empty-glyph" aria-hidden="true">⌁</div><strong>Gráfico disponível após integração</strong><p>Os valores e a evolução da frequência virão da API.</p></div></div></section>
+          <section class="panel levels-panel" aria-labelledby="levels-heading"><div class="panel-heading"><div><p class="overline">Situação escolar</p><h2 id="levels-heading">Níveis de acompanhamento</h2></div></div><div class="level-list"><div class="level-row"><span class="legend-dot regular"></span><span>Regular</span><strong>—</strong></div><div class="level-row"><span class="legend-dot attention"></span><span>Atenção</span><strong>—</strong></div><div class="level-row"><span class="legend-dot alert"></span><span>Alerta</span><strong>—</strong></div></div><p class="muted-note">A distribuição será preenchida com os totais enviados pelo back-end.</p></section>
+        </div>
+        <section class="panel students-panel" aria-labelledby="students-heading"><div class="panel-heading"><div><p class="overline">Monitoramento</p><h2 id="students-heading">Alunos que precisam de atenção</h2></div><a class="text-button" href="alunos.html">Ver alunos <span aria-hidden="true">→</span></a></div><div class="table-wrapper"><table><thead><tr><th>Estudante</th><th>Turma</th><th>Frequência</th><th>Situação</th><th>Ação</th></tr></thead><tbody id="dashboard-students-body"><tr><td class="empty-row" colspan="5"><span aria-hidden="true">▤</span><strong>Nenhum dado carregado</strong><small>A lista aparecerá após a conexão com o serviço de alunos e alertas.</small></td></tr></tbody></table></div></section>
+        <p class="footer-caption">EduAlerta · Protótipo de interface · Acesso a dados e autenticação pendentes de integração.</p>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</body>
+</html>

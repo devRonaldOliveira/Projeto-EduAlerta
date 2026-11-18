@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#052a62">
+  <title>Fila de Acompanhamento | EduAlerta</title>
+  <!-- Reaproveita o mesmo estilo-base do dashboard existente. -->
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/fila-acompanhamento.css">
+  <script src="../js/notificacoes.js" defer></script>
+  <script src="../js/fila-acompanhamento.js" defer></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="dashboard.html">
+    <img src="../assets/logo.svg" alt="EduAlerta">
+</a>
+      <nav class="sidebar-nav" aria-label="Menu principal">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/dashboard.svg" alt="" width="28" height="28"></span>Dashboard</a>
+        <a class="nav-link" href="alunos.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alunos.svg" alt="" width="28" height="28"></span>Alunos</a>
+        <a class="nav-link active" href="fila-acompanhamento.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alertas.svg" alt="" width="28" height="28"></span>Alertas</a>
+        <a class="nav-link" href="historico-indicadores.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/relatorios.svg" alt="" width="28" height="28"></span>Relatórios</a>
+<a class="nav-link" href="configuracoes.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/configuracoes.svg" alt="" width="28" height="28"></span>Configurações</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a class="nav-link" href="login.html" aria-label="Voltar ao login na prévia"><span class="nav-icon" aria-hidden="true">↪</span>Sair <span class="nav-hint">(prévia)</span></a>
+      </div>
+    </aside>
+
+    <div class="content-area">
+      <header class="topbar">
+        <button id="toggle-sidebar" class="menu-button" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Abrir navegação">☰</button>
+        <div class="header-heading">
+          <p class="eyebrow">Monitoramento escolar</p>
+          <h1>Alertas</h1>
+          <p>Identificação e acompanhamento de estudantes</p>
+        </div>
+        <div class="header-actions">
+          <div class="dropdown-wrap">
+            <button id="notifications-button" class="notification-button" type="button" aria-expanded="false" aria-controls="notifications-panel" aria-label="Abrir notificações">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span class="notification-dot" aria-hidden="true"></span><span class="notification-count" data-notification-count hidden></span>
+            </button>
+            <div id="notifications-panel" class="dropdown-panel notifications-panel" hidden role="region" aria-label="Notificações">
+              <div class="notifications-panel-heading"><strong>Notificações</strong><span>Central de avisos</span></div>
+              <p class="notification-state" data-notification-state role="status" aria-live="polite" hidden></p>
+              <div class="notification-list" data-notification-list role="list"></div>
+              <p class="notification-empty" data-notification-empty>Nenhuma notificação disponível no momento.</p>
+            </div>
+          </div>
+          <div class="dropdown-wrap">
+            <button id="account-button" class="account-button" type="button" aria-expanded="false" aria-controls="account-panel">
+              <span class="avatar" aria-hidden="true">SA</span>
+              <span class="account-caption"><strong>Secretaria de Educação</strong><small>Prefeitura do Recife</small></span>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </button>
+            <div id="account-panel" class="dropdown-panel account-panel" hidden>
+              <p>Prévia da interface — usuário não autenticado.</p><a href="login.html">Voltar ao login</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content" class="main-content queue-main">
+        <div class="queue-heading">
+          <div>
+            <p class="overline">Gestão de alertas</p>
+            <h2>Fila de Acompanhamento</h2>
+            <p>Priorize os estudantes que precisam de intervenção.</p>
+          </div>
+          <span class="queue-update-label" id="queue-data-label">Os dados ainda não estão disponíveis</span>
+        </div>
+
+        <div class="info-banner" role="status">
+          <span class="info-icon" aria-hidden="true">i</span>
+          <p><strong>Prévia da fila.</strong> Os alertas aparecerão aqui quando as informações estiverem disponíveis. Nenhum dado escolar está sendo simulado.</p>
+        </div>
+
+        <section class="queue-overview" aria-label="Filtros e indicadores dos alertas">
+          <div class="queue-tabs" role="group" aria-label="Filtrar por situação">
+            <button class="queue-tab active" type="button" data-filter="todos" aria-pressed="true">Todos <span id="count-todos">(—)</span></button>
+            <button class="queue-tab" type="button" data-filter="alto" aria-pressed="false">Alto risco <span id="count-alto">(—)</span></button>
+            <button class="queue-tab" type="button" data-filter="atencao" aria-pressed="false">Em atenção <span id="count-atencao">(—)</span></button>
+            <button class="queue-tab" type="button" data-filter="novos" aria-pressed="false">Novos <span id="count-novos">(—)</span></button>
+          </div>
+
+          <div class="queue-metrics">
+            <article class="queue-metric queue-metric-danger">
+              <span class="queue-metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span>
+              <div><h3>Alto risco</h3><strong id="metric-alto" aria-label="Dado não disponível">—</strong><p>Estudantes que precisam de prioridade no acompanhamento.</p></div>
+            </article>
+            <article class="queue-metric queue-metric-attention">
+              <span class="queue-metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span>
+              <div><h3>Em atenção</h3><strong id="metric-atencao" aria-label="Dado não disponível">—</strong><p>Estudantes que precisam de monitoramento contínuo.</p></div>
+            </article>
+            <article class="queue-metric queue-metric-fall">
+              <span class="queue-metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.46 6.46L22 12v6z"/></svg></span>
+              <div><h3>Queda recente</h3><strong id="metric-queda" aria-label="Dado não disponível">—</strong><p>Estudantes com queda de frequência nos últimos 30 dias.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel queue-list" id="lista-alertas" aria-labelledby="alerts-heading">
+          <div class="queue-list-header">
+            <div>
+              <p class="overline">Acompanhamento</p>
+              <h2 id="alerts-heading">Alertas recentes</h2>
+              <p>Estudantes que precisam de acompanhamento.</p>
+            </div>
+            <button id="show-all" class="queue-see-all" type="button">Ver todos os alertas <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="queue-toolbar">
+            <label class="queue-search-label" for="queue-search">Buscar alerta</label>
+            <div class="queue-search-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1 0 14 15.5l.27.28v.79l5 4.99L20.49 20l-4.99-5zm-5 0C8.01 14 6 11.99 6 9.5S8.01 5 10.5 5 15 7.01 15 9.5 12.99 14 10.5 14z"/></svg>
+              <input id="queue-search" type="search" placeholder="Buscar por nome, escola ou matrícula" autocomplete="off">
+            </div>
+            <p class="queue-result-summary" id="results-summary" role="status" aria-live="polite">Aguardando dados do serviço</p>
+          </div>
+          <div class="table-wrapper queue-table-wrap">
+            <table class="queue-table">
+              <thead><tr>
+                <th scope="col">Aluno(a)</th><th scope="col">Escola</th><th scope="col">Sinal identificado</th>
+                <th scope="col">Data</th><th scope="col">Status</th><th scope="col">Ações</th>
+              </tr></thead>
+              <tbody id="alerts-body">
+                <tr><td class="empty-row queue-empty" colspan="6"><span aria-hidden="true">▤</span><strong>Ainda não há alertas para exibir</strong><small>Quando as informações estiverem disponíveis, os alertas aparecerão aqui.</small></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="queue-pagination" id="queue-pagination" hidden>
+            <span id="page-summary"></span>
+            <div class="queue-page-controls">
+              <button id="page-prev" type="button" aria-label="Página anterior">← Anterior</button>
+              <span id="page-number" aria-live="polite"></span>
+              <button id="page-next" type="button" aria-label="Próxima página">Próxima →</button>
+            </div>
+          </div>
+        </section>
+        <p class="footer-caption">EduAlerta · Prévia do acompanhamento escolar.</p>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</body>
+</html>

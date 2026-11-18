@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#052a62">
+  <title>Configurações | EduAlerta</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/configuracoes.css">
+  <script src="../js/notificacoes.js" defer></script>
+  <script src="../js/configuracoes.js" defer></script>
+</head>
+<body>
+  <div class="app-layout settings-layout">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="dashboard.html">
+    <img src="../assets/logo.svg" alt="EduAlerta">
+</a>
+      <nav class="sidebar-nav" aria-label="Menu principal">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/dashboard.svg" alt="" width="28" height="28"></span>Dashboard</a>
+        <a class="nav-link" href="alunos.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alunos.svg" alt="" width="28" height="28"></span>Alunos</a>
+        <a class="nav-link" href="fila-acompanhamento.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/alertas.svg" alt="" width="28" height="28"></span>Alertas</a>
+        <a class="nav-link" href="historico-indicadores.html"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/relatorios.svg" alt="" width="28" height="28"></span>Relatórios</a>
+        <a class="nav-link active" href="configuracoes.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><img src="../assets/Icons/configuracoes.svg" alt="" width="28" height="28"></span>Configurações</a>
+      </nav>
+      <div class="sidebar-bottom"><a class="nav-link" href="login.html" aria-label="Voltar ao login na prévia"><span class="nav-icon" aria-hidden="true">↪</span>Sair <span class="nav-hint">(prévia)</span></a></div>
+    </aside>
+    <div class="content-area">
+      <header class="topbar settings-topbar">
+        <button id="toggle-sidebar" class="menu-button" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Abrir navegação">☰</button>
+        <div class="header-heading"><p class="eyebrow">Preferências do sistema</p><h1>Configurações</h1><p>Gerencie as preferências e configurações do sistema</p></div>
+        <div class="header-actions">
+          <div class="dropdown-wrap"><button id="notifications-button" class="notification-button" type="button" aria-expanded="false" aria-controls="notifications-panel" aria-label="Abrir notificações"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><span class="notification-dot" aria-hidden="true"></span></button><div id="notifications-panel" class="dropdown-panel" hidden role="status">Nenhuma notificação disponível no momento.</div></div>
+          <div class="dropdown-wrap"><button id="account-button" class="account-button" type="button" aria-expanded="false" aria-controls="account-panel"><span class="avatar" aria-hidden="true">SA</span><span class="account-caption"><strong>Secretaria de Educação</strong><small>Prefeitura do Recife</small></span><span class="chevron" aria-hidden="true">⌄</span></button><div id="account-panel" class="dropdown-panel account-panel" hidden><p>Esta conta é apenas ilustrativa.</p><a href="login.html">Voltar ao login</a></div></div>
+        </div>
+      </header>
+      <main id="main-content" class="main-content settings-main">
+        <section class="settings-card" aria-labelledby="profile-title">
+          <h2 id="profile-title">Perfil</h2>
+          <div class="settings-profile">
+            <span class="settings-user-avatar" aria-hidden="true">SA</span>
+            <div><strong>Administrador</strong><p>Secretaria de Educação</p><small>Prefeitura do Recife</small></div>
+          </div>
+        </section>
+        <section class="settings-card" aria-labelledby="notifications-title">
+          <h2 id="notifications-title">Notificações</h2>
+          <div class="settings-switches">
+            <label class="settings-switch-row" for="notify-high-risk"><span>Alertas de alunos em alto risco</span><span class="settings-switch"><input type="checkbox" id="notify-high-risk" checked><span class="settings-switch-track" aria-hidden="true"></span></span></label>
+            <label class="settings-switch-row" for="notify-followups"><span>Novos acompanhamentos</span><span class="settings-switch"><input type="checkbox" id="notify-followups" checked><span class="settings-switch-track" aria-hidden="true"></span></span></label>
+            <label class="settings-switch-row" for="notify-reports"><span>Relatórios disponíveis</span><span class="settings-switch"><input type="checkbox" id="notify-reports" checked><span class="settings-switch-track" aria-hidden="true"></span></span></label>
+          </div>
+        </section>
+        <section class="settings-card" aria-labelledby="preferences-title">
+          <h2 id="preferences-title">Preferências do sistema</h2>
+          <div class="settings-preferences">
+            <div class="settings-field"><label for="language">Idioma</label><select id="language" aria-describedby="language-note"><option value="pt-BR">Português (Brasil)</option></select><small id="language-note" class="settings-field-note">Português (Brasil) é o idioma disponível.</small></div>
+            <div class="settings-field"><label for="appearance">Exibição</label><select id="appearance"><option value="padrao">Padrão</option><option value="alto-contraste">Alto contraste</option></select></div>
+          </div>
+        </section>
+        <div class="settings-footer">
+          <div class="settings-disclaimer"><strong>Preferências locais.</strong> As preferências são salvas neste navegador.</div>
+          <button class="settings-save" type="button" id="save-settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm3-10H5V5h10v4z"/></svg>Salvar alterações</button>
+        </div>
+        <p id="settings-feedback" class="settings-feedback" role="status" aria-live="polite"></p>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</body>
+</html>
